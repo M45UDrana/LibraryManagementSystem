@@ -5,77 +5,30 @@ namespace LMS.Infrastracture.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
+        #region private fields
         private readonly LibraryContext _context;
+        private IBookRepository? _books;
+        private IAuthorRepository _authors = null!;
+        private ISubjectRepository _subjects = null!;
+        private IMemberRepository _members = null!;
+        private ITransactionRepository _issues = null!;
+        #endregion private fields
 
         public UnitOfWork(LibraryContext context)
         {
             _context = context;
         }
 
-        private IBookRepository _books = null!;
-        public IBookRepository Books
-        {
-            get
-            {
-                if (_books == null)
-                {
-                    _books = new BookRepository(_context);
-                }
-                return _books;
-            }
-        }
+        #region properties
+        public IBookRepository Books => _books ??= new BookRepository(_context);
+        public IAuthorRepository Authors => _authors ??= new AuthorRepository(_context);
 
-        private IAuthorRepository _authors = null!;
-        public IAuthorRepository Authors
-        {
-            get
-            {
-                if (_authors == null)
-                {
-                    _authors = new AuthorRepository(_context);
-                }
-                return _authors;
-            }
-        }
+        public ISubjectRepository Subjects => _subjects ??= new SubjectRepository(_context);
 
-        private ISubjectRepository _subjects = null!;
-        public ISubjectRepository Subjects
-        {
-            get
-            {
-                if (_subjects == null)
-                {
-                    _subjects = new SubjectRepository(_context);
-                }
-                return _subjects;
-            }
-        }
+        public IMemberRepository Members => _members ??= new MemberRepository(_context);
 
-        private IMemberRepository _members = null!;
-        public IMemberRepository Members
-        {
-            get
-            {
-                if (_members == null)
-                {
-                    _members = new MemberRepository(_context);
-                }
-                return _members;
-            }
-        }
-
-        private ITransactionRepository _issues = null!;
-        public ITransactionRepository Issues
-        {
-            get
-            {
-                if (_issues == null)
-                {
-                    _issues = new TransactionRepository(_context);
-                }
-                return _issues;
-            }
-        }
+        public ITransactionRepository Issues => _issues ??= new TransactionRepository(_context);
+        #endregion properties
 
         public int Save()
         {

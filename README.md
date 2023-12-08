@@ -1,7 +1,5 @@
 # Library Management System
-A Library Management System in .NET 6 using Clean Architecture, Generic Repository Pattern and UnitOfWork
-
-The Clean Architecture is motivated from [Clean Architecture In ASP.NET Core](https://www.c-sharpcorner.com/article/clean-architecture-in-asp-net-core-web-api/) article.
+A Library Management System in .NET 6 using Generic Repository Pattern and UnitOfWork
 
 ## 1. Prepare your environment
 Get the latest code from `develop` branch and proceed with the following instructions to run the application. Ensure that the required tools are installed in your environment.
